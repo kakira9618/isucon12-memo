@@ -1,7 +1,7 @@
 ## コンテナに入りたい
 ### docker 単体
 ```
-sudo docker ps
+$ sudo docker ps
 CONTAINER ID   IMAGE                       COMMAND                  CREATED          STATUS          PORTS                                                  NAMES
 1e1ee481a121   docker-compose_nginx        "dockerize -timeout …"   48 seconds ago   Up 46 seconds   0.0.0.0:8080->80/tcp, :::8080->80/tcp                  docker-compose_nginx_1
 b089e20992d7   docker-compose_api-server   "dockerize -timeout …"   48 seconds ago   Up 46 seconds   0.0.0.0:1323->1323/tcp, :::1323->1323/tcp              docker-compose_api-server_1
@@ -9,7 +9,7 @@ b089e20992d7   docker-compose_api-server   "dockerize -timeout …"   48 seconds
 ```
 
 ```
-sudo docker container exec -it 1e1e bash
+$ sudo docker container exec -it 1e1e bash
 root@1e1ee481a121:/#
 ```
 

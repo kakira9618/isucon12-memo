@@ -5,23 +5,23 @@
 ### インストール方法
 1. alpのインストール
 ```
-wget https://github.com/tkuchiki/alp/releases/download/v1.0.10/alp_linux_amd64.zip
-sudo apt install unzip
-unzip alp_linux_amd64.zip
-sudo mv alp /usr/local/bin/alp
+$ wget https://github.com/tkuchiki/alp/releases/download/v1.0.10/alp_linux_amd64.zip
+$ sudo apt install unzip
+$ unzip alp_linux_amd64.zip
+$ sudo mv alp /usr/local/bin/alp
 ```
 
 `alp` コマンドが使えるようになっていればOK
 
 2. nginx用の拡張設定ファイル（log_format.conf）を作る
 ```
-sudo touch /etc/nginx/conf.d/log_format.conf
-sudo chmod 777 /etc/nginx/conf.d/log_format.conf
+$ sudo touch /etc/nginx/conf.d/log_format.conf
+$ sudo chmod 777 /etc/nginx/conf.d/log_format.conf
 ```
 
 3. log_format.conf に設定を追記
 ```
-sudo vim /etc/nginx/conf.d/log_format.conf
+$ sudo vim /etc/nginx/conf.d/log_format.conf
 ```
 ```
 log_format ltsv "time:$time_local"
@@ -47,8 +47,7 @@ access_log /var/log/nginx/access.log ltsv;
 
 - 通常の使い方
 ```
-cat /var/log/nginx/access.log | alp ltsv
-
+$ cat /var/log/nginx/access.log | alp ltsv
 +-------+--------+-------------------------------------------------------------+-----+------+-----+-----+-----+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | METHOD |                             URI                             | 1XX | 2XX  | 3XX | 4XX | 5XX |  MIN  |  MAX  |   SUM   |  AVG  |  P1   |  P50  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+--------+-------------------------------------------------------------+-----+------+-----+-----+-----+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
@@ -62,7 +61,7 @@ cat /var/log/nginx/access.log | alp ltsv
 - filter
 条件にマッチするものだけを抜き出す
 ```
-cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'"
+$ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'"
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | 1XX | 2XX  | 3XX | 4XX | 5XX | METHOD |             URI              |  MIN  |  MAX  |   SUM   |  AVG  |  P90  |  P95  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
@@ -77,7 +76,7 @@ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'"
 - sort, count
 条件にマッチするものだけを抜き出し、count昇順にソート
 ```
-cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count
+$ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | 1XX | 2XX  | 3XX | 4XX | 5XX | METHOD |             URI              |  MIN  |  MAX  |   SUM   |  AVG  |  P90  |  P95  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
@@ -93,7 +92,7 @@ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" 
 - sort, count, rev
 条件にマッチするものだけを抜き出し、count降順にソート
 ```
-cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count -r
+$ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count -r
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | 1XX | 2XX  | 3XX | 4XX | 5XX | METHOD |             URI              |  MIN  |  MAX  |   SUM   |  AVG  |  P90  |  P95  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
@@ -108,7 +107,7 @@ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" 
 - sort, count, rev (2)
 条件にマッチするものだけを抜き出し、処理時間の平均降順にソート
 ```
-cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count
+$ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" --sort=count
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | 1XX | 2XX  | 3XX | 4XX | 5XX | METHOD |             URI              |  MIN  |  MAX  |   SUM   |  AVG  |  P90  |  P95  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+-----+------+-----+-----+-----+--------+------------------------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
@@ -125,7 +124,7 @@ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" 
 - sort, count, rev (2)
 条件にマッチするものだけを抜き出し、それらをまとめる
 ```
-cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" -m "^/api/estate/.+"
+$ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'" -m "^/api/estate/.+"
 +-------+-----+-------+-----+-----+-----+--------+-----------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+
 | COUNT | 1XX |  2XX  | 3XX | 4XX | 5XX | METHOD |       URI       |  MIN  |  MAX  |   SUM   |  AVG  |  P90  |  P95  |  P99  | STDDEV | MIN(BODY) | MAX(BODY) |  SUM(BODY)   | AVG(BODY) |
 +-------+-----+-------+-----+-----+-----+--------+-----------------+-------+-------+---------+-------+-------+-------+-------+--------+-----------+-----------+--------------+-----------+

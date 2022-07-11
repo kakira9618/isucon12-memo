@@ -2,13 +2,13 @@
 
 ```
 # TCPプロトコルを利用しているものを表示
-$sudo lsof -i TCP
+$ sudo lsof -i TCP
 
 # UDPプロトコルを利用しているものを表示
-$sudo lsof -i UDP
+$ sudo lsof -i UDP
 
 # 22ポートを使っているものを表示
-$sudo lsof -i :22
+$ sudo lsof -i :22
 ```
 
 ### 参考文献
