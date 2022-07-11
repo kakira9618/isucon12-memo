@@ -12,7 +12,7 @@ sudo mv alp_linux_amd64 alp
 sudo mv alp /usr/local/bin/alp
 ```
 
-alp が使えるようになっていればOK
+`alp` コマンドが使えるようになっていればOK
 
 2. nginx用の拡張設定ファイル（log_format.conf）を作る
 ```
@@ -21,6 +21,9 @@ sudo chmod 777 /etc/nginx/conf.d/log_format.conf
 ```
 
 3. log_format.conf に設定を追記
+```
+sudo vim /etc/nginx/conf.d/log_format.conf
+```
 ```
 log_format ltsv "time:$time_local"
                 "\thost:$remote_addr"
