@@ -58,7 +58,7 @@ sudo cat /var/log/nginx/access.log | alp
 （略）
 ```
 
-### 注意点・躓いた点
+### 備考・注意点・躓いた点
 - nginxのアクセスログ（access.log）が生成されないとき
   - sudo systemctl restart nginx しましたか
   - sudo systemctl reload nginx しましたか
