@@ -11,3 +11,4 @@
 - nginxのworker_connectionsの設定
 - go.sumとか
 - tmuxの操作
+- 競技開始時のやることリスト
