@@ -1,14 +1,23 @@
 ## TODO
+- netdata
 - redis/memchached
 - dstat
 - unix domain socket
 - mysql index
+- mysql version と 使えるindex, 機能
+  - FullTextインデックス
+- mysql 設定チューニング
+- OSの設定チューニング
+  - ファイルディスクリプタ数
+- N+1
 - systemd
 - db と webapp の分離
 - makefile
 - nginxで静的ファイルは返す
 - 静的ファイルに変更がない場合に304を返す
+- Accept-Encoding: gzip
 - nginxのworker_connectionsの設定
 - go.sumとか
 - tmuxの操作
+- Varnish
 - 競技開始時のやることリスト
