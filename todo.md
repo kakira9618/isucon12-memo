@@ -1,0 +1,13 @@
+## TODO
+- pprof
+- redis/memchached
+- dstat
+- unix domain socket
+- mysql index
+- systemd
+- db と webapp の分離
+- makefile
+- nginxで静的ファイルは返す
+- 静的ファイルに変更がない場合に304を返す
+- nginxのworker_connectionsの設定
+- 
