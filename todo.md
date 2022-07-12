@@ -1,5 +1,4 @@
 ## TODO
-- pprof
 - redis/memchached
 - dstat
 - unix domain socket
