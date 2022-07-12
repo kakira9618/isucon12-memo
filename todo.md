@@ -10,4 +10,5 @@
 - nginxで静的ファイルは返す
 - 静的ファイルに変更がない場合に304を返す
 - nginxのworker_connectionsの設定
-- 
+- go.sumとか
+- tmuxの操作
