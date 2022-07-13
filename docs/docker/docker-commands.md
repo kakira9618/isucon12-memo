@@ -8,7 +8,8 @@
 
 
 ### チートシート
-https://qiita.com/wMETAw/items/34ba5c980e2a38e548db
+https://qiita.com/nimusukeroku/items/72bc48a8569a954c7aa2
+https://qiita.com/wMETAw/items/34ba5c980e2a38e548db (ちょっと古いので注意)
 
 
 ### FAQ
