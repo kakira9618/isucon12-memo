@@ -1,6 +1,5 @@
 ## TODO
 - redis/memchached
-- dstat
 - unix domain socket
 - mysql index
 - mysql version と 使えるindex, 機能
