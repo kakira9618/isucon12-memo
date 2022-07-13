@@ -20,14 +20,14 @@ docker run -d --name=netdata \
 ```
 
 ### 使い方
-1. ブラウザで https://<server-ip>:19999/ にアクセスする
+1. ブラウザで `https://<server-ip>:19999/` にアクセスする
 ![netdata_overview](./resources/netdata_overview.png)
 
 2. 画面右上に `(Playing/Paused) 2022/07/13・21:02 -> 21:11 9min` などと書いてあるところがあるが、ここで解析対象の時間を設定することが可能
-    - Playing のときは、リアルタイム解析。解析する直近の時間の長さを指定できる（直近10分解析、など）
-    - Paused のときは、非リアルタイム解析。解析する開始時刻と終了時刻を指定できる
+    - `Playing` のときは、リアルタイム解析。解析する直近の時間の長さを指定できる（直近10分解析、など）
+    - `Paused` のときは、非リアルタイム解析。解析する開始時刻と終了時刻を指定できる
 
-3. 画面上に、import / export ボタンがあり、解析結果を 読み込み/保存 できる
+3. 画面上に、`import` / `export` ボタンがあり、解析結果を 読み込み / 保存 できる
     - 保存する際に、データ点の間隔を指定できる（3 seconds per point など）
 
 4. 各指標の説明は英語で説明が書いてあるのでそこを読むこと。ISUCONで出てきそうなのは
@@ -36,7 +36,7 @@ docker run -d --name=netdata \
         - isuconのwebappなどは user プロセスとして動くので、cpu/user が大きい -> CPU負荷が高い、となる
         - CPUがフル稼働（100%）のときは、loadを見る。待たされているプロセスの数がわかるので、どのくらい処理が間に合っていないのかがはっきりわかる
     2. disk
-        - 読み込みが多いか、書き込みが多いかがin(reads)/out(writes)を見るとわかる
+        - 読み込みが多いか、書き込みが多いかが `in(reads)` / `out(writes)` を見るとわかる
         - これが上下に張り付いて定数だったら、ディスクがボトルネックになっている
     3. ram 
         - [IT Mediaの記事がわかりやすい](https://atmarkit.itmedia.co.jp/ait/articles/0810/01/news134_2.html)
