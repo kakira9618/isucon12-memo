@@ -1,5 +1,4 @@
 ## TODO
-- netdata
 - redis/memchached
 - dstat
 - unix domain socket
