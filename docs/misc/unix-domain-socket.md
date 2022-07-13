@@ -167,7 +167,7 @@ func main() {
 ```
 
 ## 備考・躓いた点・注意点
-- TCP接続でも接続可能にしたい。pprof と両立させたいね。
+- TCP接続でも接続可能にしたい。
   - 調査中
   - ワークアラウンドとして、下みたいにするのはアリ。
   ```go
@@ -177,6 +177,8 @@ func main() {
         e.Logger.Fatal(e.Start(serverPort))
     }
   ```
+- pprof と両立させたい。
+  - nginx 経由でアクセスすれば外側からはTCPに見えるのを使って、appサーバーの実装に pprof を同居させておいて、nginxからpass_proxyすれば良い
 - なんか接続できない
   - ログを確認しよう。nginx なら `/var/log/error.log` とか。
 
