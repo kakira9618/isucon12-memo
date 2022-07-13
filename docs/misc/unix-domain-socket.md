@@ -10,7 +10,7 @@ TCP はリモート相手でも通信できるので、違うインスタンス�
 Unixにおけるそのようなファイルを Unix Domain Socket (UDS) という。
 
 nginx - app 間の通信を TCP ではなく UDS で行うのは、ISUCONでは頻出のテクニックである。  
-(他には memcached / redis などの通信にもUDSが有効。app - db 間は後でインスタンスを分けて運用したくなることが多いのでUDSは使わないほうが無難。)
+(他には app - memcached / redis などの通信にもUDSが有効。app - db 間は後でインスタンスを分けて運用したくなることが多いのでUDSは使わないほうが無難。)
 
 ## 設定方法
 
@@ -93,9 +93,9 @@ volumes:
 
 ### 各コンテナ内で Unix Domain Socket を使うように設定する
 
-実際に各コンテナ内で動くサービスの設定を変えて、tcp ではなく unix domain socket で待受けてもらうようにする
+実際に各コンテナ内で動くサービスの設定を変えて、tcp ではなく unix domain socket を見てもらうようにする
 
-- nginx コンテナの場合
+- nginx の場合
 
 例：nginx.conf
 ```nginx
