@@ -82,6 +82,10 @@ http://<server-ip>:22222/
 ![代替テキスト](./resources/pprof_graph.png)
 - framegraph
 ![代替テキスト](./resources/pprof_framegraph.png)
+framegraph は読めるようになっておこう。  
+pprofのframegraphは横軸が時間軸ではなく、計測時間全体に占める割合である。同じルーチンが10回に分けて呼ばれた場合、そのルーチンの全体に占める時間の割合は、それぞれの処理時間の和をもとに計算することになる。  
+また縦軸の包含関係が、親ルーチンと子ルーチンの関係を表している。上に行くほど粒度が大まかに、下に行くほど粒度が細かくなる。  
+本質的に重くなっているメインのルーチンがどれであるかを判定できるようになっておこう。（このframegraphの場合は、searchEstateNazotteやsearchEstates, searchChairs がボトルネックになっている事がわかる）
 
 ISUCONではframegraphが使えそう
 
