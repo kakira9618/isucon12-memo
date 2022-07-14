@@ -87,7 +87,7 @@ volumes:
   appsocket: # この docker-compose.yml 内での共通ボリュームの名前
     driver_opts:
       type: none
-      device: /tmp/run/app # ホスト側のディレクトリのパス
+      device: /var/run/app # ホスト側のディレクトリのパス (予め mkdir -p /var/run/app などでディレクトリを作っておく)
       o: bind
 ```
 
@@ -181,6 +181,8 @@ func main() {
   - nginx 経由でアクセスすれば外側からはTCPに見えるのを使って、appサーバーの実装に pprof を同居させておいて、nginxからpass_proxyすれば良い
 - なんか接続できない
   - ログを確認しよう。nginx なら `/var/log/error.log` とか。
+- いつのまにホスト側のソケットファイルが消えてる
+  - /tmp/ 以下とかに作ると消えたりする。/var 以下にディレクトリを作ろう
 
 ## 参考文献
 - https://qiita.com/jungissei/items/62aceb4f8962e6f38266
