@@ -3,7 +3,7 @@
 ### ISUCONで使うやつ
 - docker ps
   - dockerコンテナの情報一覧
-- docker container exec -it <container-id> <command>
+- docker exec -it <container-id> <command>
   - コンテナに入る
 
 
