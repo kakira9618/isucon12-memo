@@ -5,7 +5,10 @@
   - dockerコンテナの情報一覧
 - docker exec -it <container-id> <command>
   - コンテナに入る
-
+- docker logs <container-id>
+  - 各コンテナのログを見る
+- docker-compose logs
+  - すべてのコンテナのログを見る
 
 ### チートシート
 https://qiita.com/nimusukeroku/items/72bc48a8569a954c7aa2
