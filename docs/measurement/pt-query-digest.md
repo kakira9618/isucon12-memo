@@ -19,7 +19,7 @@ long_query_time=0.01
 
 mysqld にログインする。`mysql` でログインできなかったら、接続情報は環境変数 (.env, env.sh) や設定ファイル (.yaml) などにあるはずなので調べる
 ```
-$ mysql -u ユーザ名 -p データベース名
+$ mysql -u Username -p Database
 Enter password:（パスワードを入力）
 ```
 ```
