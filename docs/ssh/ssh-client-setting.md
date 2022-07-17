@@ -9,7 +9,7 @@ ISUCON 用に VSCode を使ってリモートに接続しつつ、github 認証�
 eval `ssh-agent`
 ssh-add ~/.ssh/id_rsa
 ```
-今回は、ssh-add の引数として、 **github に登録した鍵に対応する秘密鍵**を指定する。
+今回は、ssh-add の引数として、 **github に登録した公開鍵に対応する秘密鍵**を指定する。
 
 2. 設定ファイルを編集  
 例:
