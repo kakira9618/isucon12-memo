@@ -4,7 +4,7 @@ ISUCON 用に VSCode を使ってリモートに接続しつつ、github 認証�
 [予めサーバーサイドで、作業ユーザで直接ssh接続できるように設定しておく必要がある。](./ssh-server-setting.md)  
  (デフォルトの接続userからsuして作業ユーザに変えると、ssh-agentが鍵を持っていってくれなくなるため)
 
-1. (WSL のみ) `~/.bashrc` 末尾に以下を追加 (VS Code でも ssh-agent が使えるように追加)
+1. (WSL のみ) `~/.bashrc` 末尾に以下を追加 (VS Code でも ssh-agent が使えるように追加; ターミナルが起動するときに自動で実行されます)
 ```
 eval `ssh-agent`
 ssh-add ~/.ssh/id_rsa
