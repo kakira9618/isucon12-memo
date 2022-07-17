@@ -13,7 +13,7 @@ Host isucon10-01
 2. 秘密鍵をエージェントに登録  
 ```
 //windows の場合
-$ eval 'ssh-agent'
+$ eval `ssh-agent`
 $ ssh-add -k ~/.ssh/id_rsa
 ```
 
