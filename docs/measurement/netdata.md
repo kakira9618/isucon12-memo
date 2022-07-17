@@ -20,7 +20,7 @@ docker run -d --name=netdata \
 ```
 
 ### 使い方
-1. ブラウザで `https://<server-ip>:19999/` にアクセスする
+1. ブラウザで `http://<server-ip>:19999/` にアクセスする
 ![netdata_overview](./resources/netdata_overview.png)
 
 2. 画面右上に `(Playing/Paused) 2022/07/13・21:02 -> 21:11 9min` などと書いてあるところがあるが、ここで解析対象の時間を設定することが可能
