@@ -1,3 +1,4 @@
+
 ## alp
 ### 概要
 アクセスログ解析ツール
@@ -145,6 +146,7 @@ $ cat /var/log/nginx/access.log | alp ltsv --filters "Uri matches '^/api/estate'
   - sudo systemctl reload nginx しましたか
   - そのnginxに本当にアクセスが通っていますか？
     - 生のnginxとdockerで立ち上げたコンテナ内で走るnginxは別物です
+    - `sudo docker-compose -f go.yaml exec nginx bash` でnginx内でbashを実行する
   - ファイルのアクセス権限は適切ですか？
     - https://www.bit-hive.com/articles/20220414
     - ディレクトリの所有者、パーミッション、ログファイルの所有者パーミッションをチェック
