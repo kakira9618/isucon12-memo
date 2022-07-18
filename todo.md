@@ -1,5 +1,4 @@
 ## TODO
-- redis/memchached
 - mysql index
 - mysql version と 使えるindex, 機能
   - FullTextインデックス

@@ -44,7 +44,7 @@ $ sudo docker-compose -f docker-compose/go.yaml exec redis bash
 ```
 
 ### 使い方
-Goアプリケーションに組み込む場合。細かい使い方は [コミットを参照](https://github.com/kakira9618/isucon10-qual-webapp/pull/4/commits/7a738ae4ab3bb1bfa6b0286309e5905881cabc2b) してください。
+Goアプリケーションに組み込む場合。細かい使い方は [コミットを参照](https://github.com/kakira9618/isucon10-qual-webapp/pull/4/commits/25f340160900d6596e5ee79446f75fd97db69cb3) してください。
 
 使い方抜粋
 
@@ -76,6 +76,6 @@ err = rdb.Set(ctx, "count", fmt.Sprintf("%d", val), 0).Err()
 
 ### 参考文献
 - https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04-ja
-- https://github.com/kakira9618/isucon10-qual-webapp/pull/4/commits/7a738ae4ab3bb1bfa6b0286309e5905881cabc2b
+- https://github.com/kakira9618/isucon10-qual-webapp/pull/4/commits/25f340160900d6596e5ee79446f75fd97db69cb3
 - https://redis.uptrace.dev/
 
