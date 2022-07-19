@@ -2,7 +2,6 @@
 - mysql index
 - mysql version と 使えるindex, 機能
   - FullTextインデックス
-- mysql 設定チューニング
 - OSの設定チューニング
   - ファイルディスクリプタ数
 - N+1
