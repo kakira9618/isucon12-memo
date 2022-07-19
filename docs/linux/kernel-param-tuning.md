@@ -81,3 +81,26 @@ net.ipv4.tcp_fin_timeout = 10
 EOS
 '
 ```
+
+他の秘伝のタレ: https://qiita.com/cubicdaiya/items/235777dc401ec419b14e
+```
+$ sudo sh -c 'cat <<EOS >> /etc/sysctl.conf
+net.core.somaxconn=32768
+net.core.netdev_max_backlog=32768
+net.ipv4.tcp_max_syn_backlog=32768
+net.ipv4.tcp_tw_recycle=1
+net.ipv4.tcp_tw_reuse=1
+net.ipv4.tcp_fin_timeout=10
+net.core.rmem_max  = 16777216
+net.core.wmem_max  = 16777216
+net.ipv4.tcp_rmem  = 4096 349520 16777216
+net.ipv4.tcp_wmem  = 4096 65536 16777216
+net.ipv4.ip_local_port_range= 1024 65535
+net.ipv4.tcp_timestamps = 0
+EOS
+'
+```
+
+### 参考文献
+- https://matsukaz.hatenablog.com/entry/2018/09/20/081855
+- https://qiita.com/cubicdaiya/items/235777dc401ec419b14e
