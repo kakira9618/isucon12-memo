@@ -2,6 +2,7 @@
 - mysql index
 - mysql version と 使えるindex, 機能
   - FullTextインデックス
+  - spacial インデックス
 - OSの設定チューニング
   - ファイルディスクリプタ数
 - N+1
