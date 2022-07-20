@@ -168,6 +168,7 @@ https://qiita.com/mamy1326/items/9c5eaee3c986cff65a55 を見ながらチュー�
 チューニング結果は以下の通り  
 https://github.com/kakira9618/isucon10-qual-webapp/pull/6
 
+/etc/my.cnf
 ```ini
 # #################
 # innodb
