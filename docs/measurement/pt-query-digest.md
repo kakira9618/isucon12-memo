@@ -11,7 +11,7 @@ $ vim /etc/my.cnf # サーバー本体ではなく、docker containerの中のmy
 [mysqld]
 character-set-server=utf8mb4
 slow_query_log=1
-slow_query_log_file='/tmp/slow.log'
+slow_query_log_file='/var/log/mysql/slow.log'
 long_query_time=0.01
 ```
 
@@ -24,12 +24,12 @@ Enter password:（パスワードを入力）
 ```
 ```
 mysql> show variables like 'slow_query%';
-+---------------------+---------------+
-| Variable_name       | Value         |
-+---------------------+---------------+
-| slow_query_log      | ON            |
-| slow_query_log_file | /tmp/slow.log |
-+---------------------+---------------+
++---------------------+--------------------------+
+| Variable_name       | Value                    |
++---------------------+--------------------------+
+| slow_query_log      | ON                       |
+| slow_query_log_file | /var/log/mysql/slow.log  |
++---------------------+--------------------------+
 2 rows in set (0.01 sec)
 
 mysql> show variables like 'long%';
