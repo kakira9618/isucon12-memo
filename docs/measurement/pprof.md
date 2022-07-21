@@ -100,6 +100,33 @@ ISUCONではframegraphが使えそう
 $ go tool pprof -http="0.0.0.0:22222" /home/isucon/pprof/pprof.isuumo.samples.cpu.001.pb.gz
 ```
 
+### コマンドだけでframegraphを生成する
+go-torch, FlameGraph を入れる
+```
+$ cd ~
+$ go get github.com/uber/go-torch
+$ git clone https://github.com/brendangregg/FlameGraph
+```
+
+PATHを通す。`~/.bashrc` 末尾に以下を追記
+```
+export PATH=/home/ユーザー名/FlameGraph:$PATH
+```
+
+sourceを忘れずに
+```
+$ source ~/.bashrc
+```
+
+ベンチを動かす。go tool pprof の代わりに、go-torch を使うと svg が出力される
+```
+$ go-torch --time 5 --url http://localhost:1323/debug/pprof/profile
+INFO[04:11:59] Run pprof command: go tool pprof -raw -seconds 5 http://localhost:1323/debug/pprof/profile
+INFO[04:12:05] Writing svg to torch.svg
+```
+
+`~/pprof/torch.svg` に結果が出力される。
+
 ### 備考・注意点・躓いた点
 - 使っているWAFによって導入の仕方が微妙に異なるので注意する
   - https://zenn.dev/muroon/articles/adf577f563c806
