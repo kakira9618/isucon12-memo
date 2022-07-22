@@ -2,17 +2,6 @@
 
 ### 設定
 
-1. 必要なモジュールのインストール
-```
-$ cp -r script ~/
-$ cd ~
-$ python3 -m pip install -U "discord.py[voice]"
-$ sudo apt install -y inkscape dstat
-$ go get github.com/uber/go-torch
-$ git clone https://github.com/brendangregg/FlameGraph
-```
-
-2. 設定
 keisokukun.py の上部設定箇所をコメントに従って適切に設定してください。
 
 ### 使い方
@@ -35,8 +24,8 @@ $ python3 keisokukun.py
 bench [opts]
 ```
 
-ベンチマークを実行する。optsはベンチマーカーのオプションとして付加される。  
-ベンチマークを実行中に、プロファイリングを行い、結果を保存する。  
+ベンチマークを実行する。optsはベンチマーカーのオプションとして付加される。
+ベンチマークを実行中に、プロファイリングを行い、結果を保存する。
 ログIDと、ベンチマーカーの出力と、プロファイル結果と、アクセスログやスロークエリの解析結果をDiscordに投稿する。
 
 ### ログを見る
@@ -55,7 +44,8 @@ alp ログID alpのオプション
 ```
 exec 絶対パスのカレントディレクトリ 実行するコマンド
 ```
-`絶対パスカレントディレクトリ` にcdしてから、 `実行するコマンド` を実行する。  
+`絶対パスカレントディレクトリ` にcdしてから、 `実行するコマンド` を実行する
 ログIDが新しく発行され、結果はログに保存される。  
+コマンドの時間制限は10秒。それ以上かかると強制終了する。
 The Remote Code Execution!
 

@@ -53,6 +53,7 @@ profile_command = "PATH=$PATH:" + home + "/FlameGraph go-torch --time " + str(be
 
 # プロファイルコマンド（OS）。dstatを使用している。
 dstat_command = "timeout " + str(bench_pprof_exec_time) + " dstat -tTcdn --top-cpu"
+
 def clear_logfile(logfile_path):
     command = "sudo cp /dev/null " + logfile_path
     subprocess.run(command, shell=True)
@@ -168,18 +169,26 @@ def init_log_dir():
 async def show_logs(message, log_id, log_dir, opts):
     (bench_logfile_path, png, svg) = bench(log_dir, opts, False)
 
-    await message.channel.send("ログID: " + log_id, file=discord.File(bench_logfile_path))
-    await message.channel.send("pprof(png):", file=discord.File(png))
-    await message.channel.send("pprof(svg):", file=discord.File(svg))
+    if os.path.exists(bench_logfile_path):
+        await message.channel.send("ログID: " + log_id, file=discord.File(bench_logfile_path))
+
+    if os.path.exists(png):
+        await message.channel.send("pprof(png):", file=discord.File(png))
+
+    if os.path.exists(svg):
+        await message.channel.send("pprof(svg):", file=discord.File(svg))
 
     dstat_path = get_dstat_path(log_dir)
-    await message.channel.send("dstat:", file=discord.File(dstat_path))
+    if os.path.exists(dstat_path):
+        await message.channel.send("dstat:", file=discord.File(dstat_path))
 
     alp_result_path = alp(log_dir)
-    await message.channel.send("alp:", file=discord.File(alp_result_path))
+    if os.path.exists(alp_result_path):
+        await message.channel.send("alp:", file=discord.File(alp_result_path))
 
     pt_query_digest_result_path = pt_query_digest(log_dir)
-    await message.channel.send("pt-query-digest:", file=discord.File(pt_query_digest_result_path))
+    if os.path.exists(pt_query_digest_result_path):
+        await message.channel.send("pt-query-digest:", file=discord.File(pt_query_digest_result_path))
 
 
 @client.event
@@ -195,6 +204,49 @@ async def on_message(message):
         return
     if message.channel.name != channel_name:
         return
+
+    if message.content.startswith("help"):
+        m = """**ベンチマークを実行する**
+```
+bench [opts]
+``````
+bench --workload 10
+```
+ベンチマークを実行する。optsはベンチマーカーのオプションとして付加される。
+ベンチマークを実行中に、プロファイリングを行い、結果を保存する。
+ログIDと、ベンチマーカーの出力と、プロファイル結果と、アクセスログやスロークエリの解析結果をDiscordに投稿する。
+
+
+**ログを見る**
+```
+show_logs ログID
+``````
+show_logs 20220723073158
+```
+出力はbenchと同じだが、ベンチマークは実行しないで、ログIDものを解析対象とする
+
+
+**オプションを変えてalpを実行する**
+```
+alp ログID alpのオプション
+``````
+alp 20220723005047 --filters "Uri matches '^/api/estate'" --sort=count -r
+```
+ログIDを指定して、alpのオプションを変えて実行した場合の結果を投稿する
+
+
+**任意のコマンドを実行する**
+```
+exec 絶対パスのカレントディレクトリ 実行するコマンド
+``````
+exec /home/isucon ./script/test.sh
+```
+絶対パスカレントディレクトリ にcdしてから、 実行するコマンド を実行する
+ログIDが新しく発行され、結果はログに保存される。
+コマンドの時間制限は10秒。それ以上かかると強制終了する。
+The Remote Code Execution!
+"""
+        await message.channel.send(m)
         
     if message.content.startswith("はろー"):
         m = "こんにちは、" + message.author.name + "さん"
@@ -218,7 +270,7 @@ async def on_message(message):
             return
 
         log_dir = get_log_dir_path(log_id)
-        await message.channel.send("ログ解析を開始するよ！ log_id: " + log_id)
+        await message.channel.send("ログ解析を開始するよ！")
         await show_logs(message, log_id, log_dir, "")
         await message.channel.send("ログ解析終わり！")
 
@@ -233,7 +285,8 @@ async def on_message(message):
         log_dir = get_log_dir_path(log_id)
 
         alp_result_path = alp(log_dir, opts)
-        await message.channel.send("alp:", file=discord.File(alp_result_path))
+        if os.path.exists(alp_result_path):
+            await message.channel.send("alp:", file=discord.File(alp_result_path))
 
     if message.content.startswith("exec"):
         sp = message.content.split()
@@ -242,6 +295,7 @@ async def on_message(message):
             await message.channel.send("`exec カレントディレクトリ(絶対パス) 実行コマンド`")
         
         (result_path, log_id) = exec_command(cur_dir, command)
-        await message.channel.send("exec result (ログID:" + log_id + "):", file=discord.File(result_path))
+        if os.path.exists(result_path):
+            await message.channel.send("exec result (ログID:" + log_id + "):", file=discord.File(result_path))
 
 client.run(token)
