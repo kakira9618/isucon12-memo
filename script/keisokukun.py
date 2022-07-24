@@ -3,7 +3,6 @@
 # go get github.com/uber/go-torch
 # git clone https://github.com/brendangregg/FlameGraph
 # https://qiita.com/1ntegrale9/items/cb285053f2fa5d0cccdf
-# https://discord.com/api/oauth2/authorize?client_id=999714790656200846&permissions=2147535872&scope=bot
 import discord
 import asyncio
 import subprocess
@@ -20,36 +19,36 @@ client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 
 # 反応するチャンネル。インスタンスに沿ったものを指定してね
-channel_name = "bot-02"
+channel_name = "bot-01"
 
 # ホームディレクトリのパス。最後に/は入れないこと
 home = "/home/isucon"
 
 # nginxのアクセスログと、mysqlのスローログのパス
 # ベンチを実行すると内容が削除されるので注意。（ベンチ後にscript/logsディレクトリに格納されます）
-nginx_access_logfile = home + "/isucon10-qual-webapp/webapp/logs/nginx/access.log"
-mysql_slow_logfile = home + "/isucon10-qual-webapp/webapp/logs/mysql/slow.log"
+nginx_access_logfile = "/var/log/nginx/access.log"
+mysql_slow_logfile = "/var/log/mysql/slow.log"
 
 # ベンチ実行前に内容削除を行うシステムログのパスの配列
 system_logfiles = [nginx_access_logfile, mysql_slow_logfile]
 
 # ベンチマーカー実行ファイルのあるディレクトリのパス。ここに cd してから下のベンチマーカーのコマンドを実行するよ。
-bench_dir = home + "/isucon10-qual-webapp/bench"
+bench_dir = "/bin/"
 
 # ベンチマーカー本体の実行コマンド
-bench_command = "bench --target-url http://localhost:8080/api"
+bench_command = "echo test"
 
 # この文字列がベンチマーカーから出力されると、プロファイルを開始します
-bench_pprof_triger_string = "=== validation ==="
+#bench_pprof_triger_string = "=== validation ==="
 
 # プロファイルを開始する、となってから待つ時間
-bench_pprof_before_sleep_time = 10
+bench_pprof_before_sleep_time = 15
 
 # プロファイル実行時間
 bench_pprof_exec_time = 30
 
 # プロファイルコマンド（アプリ）。go-torchはPATHにFlameGraphディレクトリへのパスが含まれている必要があるため、指定している。
-profile_command = "PATH=$PATH:" + home + "/FlameGraph go-torch --time " + str(bench_pprof_exec_time) + " --url http://localhost:1323/debug/pprof/profile"
+profile_command = "PATH=$PATH:" + home + "/FlameGraph go-torch --time " + str(bench_pprof_exec_time) + " --url https://isuports-2.t.isucon.dev/debug/pprof/profile"
 
 # プロファイルコマンド（OS）。dstatを使用している。
 dstat_command = "timeout " + str(bench_pprof_exec_time) + " dstat -tTcdn --top-cpu"
@@ -88,13 +87,6 @@ def get_lines(cmd, log_dir):
         line = proc.stdout.readline()
         if line:
             yield line
-        if bench_pprof_triger_string in line and not executed:
-            p = Process(target=get_frame_graph, args=())
-            p.start()
-            p2 = Process(target=get_dstat, args=(log_dir, ))
-            p2.start()
-            executed = True
-
         if not line and proc.poll() is not None:
             break
 
@@ -106,6 +98,11 @@ def bench(log_dir, opts, do_bench):
     if do_bench:
         clear_logfiles()
 
+        p = Process(target=get_frame_graph, args=())
+        p.start()
+        p2 = Process(target=get_dstat, args=(log_dir, ))
+        p2.start()
+
         command = bench_dir + "/" + bench_command + " " + opts
         print("command:", command)
 
@@ -114,7 +111,14 @@ def bench(log_dir, opts, do_bench):
             f.write(line)
         f.close()
 
-        convert_command = "inkscape -z -e torch.png -w 1600 torch.svg"
+        print("wait...")
+        time.sleep(70) # 計測待ち
+        print("wait completed.")
+
+        subprocess.run("cp /home/isucon/script/torch.svg /home/isucon/pprof", shell=True)
+
+        convert_command = "inkscape -z /home/isucon/script/torch.svg -w 1600 /home/isucon/script/torch.png"
+        subprocess.run("cp /home/isucon/script/torch.png /home/isucon/pprof", shell=True)
 
         subprocess.run(convert_command, shell=True)
         subprocess.run("cp " + png + " " + log_dir, shell=True)
@@ -212,7 +216,7 @@ bench [opts]
 ``````
 bench --workload 10
 ```
-ベンチマークを実行する。optsはベンチマーカーのオプションとして付加される。
+実計測する。optsはベンチマーカーのオプションとして付加される。
 ベンチマークを実行中に、プロファイリングを行い、結果を保存する。
 ログIDと、ベンチマーカーの出力と、プロファイル結果と、アクセスログやスロークエリの解析結果をDiscordに投稿する。
 
@@ -256,7 +260,7 @@ The Remote Code Execution!
         opts = message.content[5:]
 
         (log_id, log_dir) = init_log_dir()
-        await message.channel.send("ベンチ & 計測を開始するよ！")
+        await message.channel.send("15秒後から計測を開始するよ！ すぐにベンチを走らせてね")
 
         bench(log_dir, opts, True)
 
